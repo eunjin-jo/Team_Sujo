@@ -2,6 +2,8 @@
 #include <Windows.h>
 
 
+//202618970 조은진
+
 //모든 서식을 기본값으로 
 #define COLOR_RESET "\x1b[0m"
 
