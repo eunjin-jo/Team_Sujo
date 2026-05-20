@@ -93,7 +93,39 @@ int gameState = 0;
 int TitleMenu = 1;
 
 int RenderLogo() {
-	printf(" 메인로고 \n");
+	move_cursor(1, 5);
+	printf("                                                                                       --*=$;==:*$$#*$=$#$~==-- -  ..  .                                                                 \n");
+	printf("                                                             ......                                !|-                         .... .....                 .   .                      \n");
+	printf("                                                             ,*=$$=--:;~.   .. ---------      ---.=1|===--.    ==       --     ;;#=:##@#*.    -:=~-      ~*  .~                  \n");
+	printf("                                                     '       -*~--- ..=@!      .|*==;*~=.          ~!          !-       ::     ;---,----*$.    .~*       ~*  .~                  \n");
+	printf("                                                     .       -#-       .@~      !#@#*=!!.          ;$          @:       =$     =~       -@,     ;@       *=                      \n");
+	printf("                                                     .       -=,       .@~      !=                 -;          #:       ==     *;       -@,     ;@#~     !*       .              \n");
+	printf("                                                     |       |!,      ~;#~      ;*                 -*          $:       !;  -  !:      ~;*.     ;#:*.    ~!       |               \n");
+	printf("                                                    .@       -$===*~:*==;       ;#=*!=*;,          :$          #:       =$  .  *:*$!!*$#$~      :# :=.   ;*      =+\\              \n");
+	printf("                                      .. ...   .. -+:#@:~-   |=~~~:,.-          -~ ... .           :|          :,       ~~  ,  |@----,..,       |-: ~:   ,~   - +##@+=- -        \n");
+	printf("                                  -----------        #       [,~~-;-~-,         |-                 ,;          :,       :~     -#~~,~~.         ,-  ,;,  .~      ~-;'  ------      \n");
+	printf("                                                     !       =!,  .;;-          :;                 :$          =~       **     !~   .;*         ~=   -=~ ;!       !          \n");
+	printf("                                                     '       -$-    ~;,         !=                 ~$          @:       $@     =;     =#        ;@    ,@-;=       '              \n");
+	printf("                                                     '       -$-     -*,        !=,,.,..,           =          -@~     !@      *;     -@=.      ;@     ~#*=       .           \n");
+	printf("                                                     .       -#-      =@~       !@@#=#=*$           !          .=@::; ~@!      =;      ;@=.     ;@  .   ~#*                      \n");
+	printf("                                                         .~  #==      ,@#-      ---------           ,           .;=@@;-,       *:       :@$     =?,,     @=                      \n");
+	printf("                                                                                                    |                                                                                 \n");
+	printf("                                                                                                   ;$\\                            .,                                              \n");
+	printf("                                                           .  . ..                               -,!#: -                         .,            . .                               \n");
+	printf("                                                                                                   ;#-                                                                           \n");
+	printf("                                                                                                    *                                                                            \n");
+	printf("                                                                                                    |                                                                              \n");
+	printf("                                                                                                                                                                                          \n");
+	printf("                                      ;   ..              $!,        ;= ;@#\\         ;#@@@k..        ;#!$#&.         _.#.=@         ,@@ --         ,#'  '           .;    .     \n");
+	printf("                                    :       +       .-     =;,      $   :@~!:      ,: :;$#@ $-      $!$!!:@t*+     .-*~$=$ --      :;=**   *      ;$-~       )     .:        .    \n");
+	printf("                                   ..         ;     -       ;$;   ,;.   -#*;*:     - .~::$;$#!,    #*&;=~#:-$!@    ;!-**;!-  ,    ,*;-!*     .    #=;,        .   ..          .   \n");
+	printf("                                  ~           .    :        ~$$;  ;     -@$-~@;   :, ~$$$$=.#**   !@#~=$!:#.$*$,  :@$!@=;#!   :   *#$:==     ,:  ,$$,         ]   *           :   \n");
+	printf("                                  :                /        ~*#:  -     -@$=$*#   ;  ~*:$ #~#!#;  #,=$*|*#:$ *##  :=;#~~$#;    . !**$*#       ,  ,=*          ;   -           -   \n");
+	printf("                                  .                ;        ~##;  .     :@$!=@;   .  ~!#;$?#:=$:  @:|$~&,*#$@ ;#: :=*$,~=$*    . !*=;*#       .  ,##          .   =           -  \n");
+	printf("                                  +,          ;    .        *#;;        ;@@@*#,   .  ~! @@@ @=@   -@*!-,##@# @@-  .=;-.~$@!   .  ;;=::#      -.  .%$;         :'   +           ;   \n");
+	printf("                                   ..        ,      .       .$#         -=$=!;       .!!=$ㅜ#$!.   $*=#!=$##&;#    ~*;#;$$        .*!*==    .#    .$=        $     :.           \n");
+	printf("                                    ;.     .:'       .~     *~-      ~   :##:*       ~ !$##$,;/     '=*#-##$-~      ,$:;##@  ,     |;#-=#   *      *~;      ;       ;       '   \n");
+	printf("                                      .~ ~-.'           ,:;*:'         .:$*-           ::#$-,         -$$=$ ,        -$$==          +:=$.~          -;!:~,.          ':: ''    \n");
 	return 0;
 }
 
@@ -146,31 +178,25 @@ int RenderTitle() {
 }
 
 int RenderGame() {
-	move_cursor(0, 0);
+	move_cursor(1, 1);
 
 	printf("게임플레이화면\n");
-
-
 
 	return 0;
 }
 
 int RenderHelp() {
-	move_cursor(0, 0);
+	move_cursor(1, 1);
 
 	printf("게임설명 페이지\n");
-
-
 
 	return 0;
 }
 
 int RenderCredits() {
-	move_cursor(0, 0);
+	move_cursor(1, 1);
 
 	printf("팀 소개 페이지\n");
-
-
 
 	return 0;
 }
@@ -210,7 +236,7 @@ int ProcessTitleInput() {
 	return 0;
 }
 
-int ProcessMeunInput() {
+int ProcessMenuInput() {
 	char input = _getch();
 	switch (input)
 	{
@@ -223,7 +249,7 @@ int ProcessMeunInput() {
 }
 
 int ProcessGameInput() {
-	char input = getch();
+	char input = _getch();
 	switch (input)
 	{
 	case 27:
@@ -239,6 +265,7 @@ int ProcessGameInput() {
 int main()
 {
 	gameState = GAMESTATE_START;
+	printf("\033[?25l"); //마우스 커서 숨김
 
 	while (gameState != GAMESTATE_QUIT)
 	{
@@ -262,10 +289,10 @@ int ProcessInput()
 		ProcessGameInput();
 		break;
 	case GAMESTATE_HELP:
-		ProcessMeunInput();
+		ProcessMenuInput();
 		break;
 	case GAMESTATE_CREDITS:
-		ProcessMeunInput();
+		ProcessMenuInput();
 		break;
 	}
 
@@ -279,35 +306,37 @@ int Update()
 	case GAMESTATE_START:
 		gameState = GAMESTATE_LOGO;
 		break;
+
 	case GAMESTATE_LOGO:
 		Sleep(5000);
+		system("cls");
 		gameState = GAMESTATE_TITLE_ENTER;
 		break;
+
 	case GAMESTATE_TITLE_ENTER:
-		system("cls");
 		gameState = GAMESTATE_TITLE;
 		break;
+
 	case GAMESTATE_HELP_ENTER:
-		system("cls");
 		gameState = GAMESTATE_HELP;
 		break;
+
 	case GAMESTATE_CREDITS_ENTER:
-		system("cls");
 		gameState = GAMESTATE_CREDITS;
 		break;
+
 	case GAMESTATE_GAME_ENTER:
-		system("cls");
 		gameState = GAMESTATE_GAME;
 		break;
+
 	case GAMESTATE_EXIT_ANIMATION:
 		gameState = GAMESTATE_TITLE_EXIT;
-		system("cls");
 		break;
+
 	case GAMESTATE_TITLE_EXIT:
 		Sleep(2000);
 		gameState = GAMESTATE_QUIT;
 		break;
-
 	}
 
 	return 0;
@@ -320,24 +349,34 @@ int Render()
 	case GAMESTATE_LOGO:
 		RenderLogo();
 		break;
+
 	case GAMESTATE_TITLE:
+		system("cls");
 		RenderTitle();
 		break;
+
 	case GAMESTATE_HELP:
+		system("cls");
 		RenderHelp();
 		break;
+
 	case GAMESTATE_CREDITS:
+		system("cls");
 		RenderCredits();
 		break;
+
+	case GAMESTATE_GAME:
+		system("cls");
+		RenderGame();
+		break;
+
 	case GAMESTATE_TITLE_EXIT:
 		printf("\n게임 종료 중...\n");
 		break;
+
 	case GAMESTATE_QUIT:
 		system("cls");
 		printf("\n\n 게임 종료.");
-		break;
-	case GAMESTATE_GAME:
-		RenderGame();
 		break;
 	}
 
