@@ -30,7 +30,7 @@
 #define BG_COLOR_BRIGHTMAGENTA 105
 
 /*
- * -2: 게임 시작힐때 로고 / GAMESTATE_LOGO
+ * -3: 게임 시작힐때 로고 / GAMESTATE_LOGO
  *
  * -2: 게임종료 화면으로 전환 / GAMESTATE_EXIT_ANIMATION
  * -1: 게임종료 / GAMESTATE_QUIT
@@ -314,6 +314,7 @@ int Update()
 		break;
 
 	case GAMESTATE_TITLE_ENTER:
+		system("cls");
 		gameState = GAMESTATE_TITLE;
 		break;
 
@@ -351,7 +352,6 @@ int Render()
 		break;
 
 	case GAMESTATE_TITLE:
-		system("cls");
 		RenderTitle();
 		break;
 
