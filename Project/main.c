@@ -654,9 +654,9 @@ int gameStage_prolog() {
 
 		Sleep(2000);
 		move_cursor(5, 7);
-		printf("[생일 축하합니다!]");
+		printf("[생일을 축하드립니다!]");
 		move_cursor(5, 8);
-		printf("당신은 이제 서른입니다.");
+		printf("[당신은 이제 서른입니다.]");
 
 		Sleep(2000);
 		move_cursor(5, 10);
