@@ -1,15 +1,7 @@
-Ôªø#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <Windows.h>
 
-
-
-//202618970 Ï°∞ÏùÄÏßÑ
-// ÌÖåÏä§Ìä∏
-//Ïù¥ÏÑ∏Îπà
-//ÏÜ°ÌïúÏù¥
-//Ïú§ÏàòÏïÑ
-//Î™®Îì† ÏÑúÏãùÏùÑ Í∏∞Î≥∏Í∞íÏúºÎ°ú 
 #define COLOR_RESET "\x1b[0m"
 
 #define FONT_COLOR_BLACK 30
@@ -33,28 +25,29 @@
 #define BG_COLOR_BRIGHTMAGENTA 105
 
 /*
- * -3: Í≤åÏûÑ ÏãúÏûëÌûêÎïå Î°úÍ≥† / GAMESTATE_LOGO
+ * -3: ∞‘¿” Ω√¿€ ∑Œ∞Ì / GAMESTATE_LOGO
  *
- * -2: Í≤åÏûÑÏ¢ÖÎ£å ÌôîÎ©¥ÏúºÎ°ú Ï†ÑÌôò / GAMESTATE_EXIT_ANIMATION
- * -1: Í≤åÏûÑÏ¢ÖÎ£å / GAMESTATE_QUIT
- * 0 : Í≤åÏûÑ ÏãúÏûë / GAMESTATE_START
+ * -2: ∞‘¿”¡æ∑· »≠∏È¿∏∑Œ ¿¸»Ø / GAMESTATE_EXIT_ANIMATION
+ * -1: ∞‘¿”¡æ∑· / GAMESTATE_QUIT
+ * 0 : ∞‘¿” Ω√¿€ / GAMESTATE_START
  *
- * 1 : Í≤åÏûÑ ÌÉÄÏù¥ÌãÄ ÌôîÎ©¥ / GAMESTATE_TITLE
- * 2 : Í≤åÏûÑ ÌÉÄÏù¥ÌãÄ ÌôîÎ©¥ÏúºÎ°ú Ï†ÑÌôò / GAMESTATE_TITLE_ENTER
- * 3 : Í≤åÏûÑ ÌÉÄÏù¥ÌãÄ ÌôîÎ©¥ Ï¢ÖÎ£å / GAMESTATE_TITLE_EXIT
+ * 1 : ∞‘¿” ≈∏¿Ã∆≤ »≠∏È / GAMESTATE_TITLE
+ * 2 : ∞‘¿” ≈∏¿Ã∆≤ »≠∏È¿∏∑Œ ¿¸»Ø / GAMESTATE_TITLE_ENTER
+ * 3 : ∞‘¿” ≈∏¿Ã∆≤ »≠∏È ¡æ∑· / GAMESTATE_TITLE_EXIT
  *
- *  4: Í≤åÏûÑ ÌîåÎ†àÏù¥ ÌôîÎ©¥ÏúºÎ°ú Ï†ÑÌôò / GAMESTATE_GAME_ENTER
- *  5: Í≤åÏûÑ ÌîåÎ†àÏù¥ Ï§ë / GAMESTATE_GAME
- *  6: Í≤åÏûÑ ÌîåÎ†àÏù¥ ÌôîÎ©¥ Ï¢ÖÎ£å / GAMESTATE_GAME_EXIT
+ *  4: ∞‘¿” «√∑π¿Ã »≠∏È¿∏∑Œ ¿¸»Ø / GAMESTATE_GAME_ENTER
+ *  5: ∞‘¿” «√∑π¿Ã ¡ﬂ / GAMESTATE_GAME
+ *  6: ∞‘¿” «√∑π¿Ã »≠∏È ¡æ∑· / GAMESTATE_GAME_EXIT
  *
- * 7 : ÌîåÎ†àÏù¥ Î∞©Î≤ï / GAMESTATE_HELP
- * 8 : ÌîåÎ†àÏù¥ Î∞©Î≤ï ÏßÑÏûÖ / GAMESTATE_HELP_ENTER
- * 9 : ÌîåÎ†àÏù¥ Î∞©Î≤ï Ï¢ÖÎ£å / GAMESTATE_HELP_EXIT
+ * 7 : «√∑π¿Ã πÊπ˝ / GAMESTATE_HELP
+ * 8 : «√∑π¿Ã πÊπ˝ ¡¯¿‘ / GAMESTATE_HELP_ENTER
+ * 9 : «√∑π¿Ã πÊπ˝ ¡æ∑· / GAMESTATE_HELP_EXIT
  *
- * 10: ÌåÄ ÏÜåÍ∞ú / GAMESTATE_CREDITS
- * 11: ÌåÄ ÏÜåÍ∞ú ÏßÑÏûÖ / GAMESTATE_CREDITS_ENTER
- * 12: ÌåÄ ÏÜåÍ∞ú Ï¢ÖÎ£å / GAMESTATE_CREDITS_EXIT
+ * 10: ∆¿ º“∞≥ / GAMESTATE_CREDITS
+ * 11: ∆¿ º“∞≥ ¡¯¿‘ / GAMESTATE_CREDITS_ENTER
+ * 12: ∆¿ º“∞≥ ¡æ∑· / GAMESTATE_CREDITS_EXIT
  */
+
 #define GAMESTATE_LOGO -3
 
 #define GAMESTATE_EXIT_ANIMATION -2
@@ -92,395 +85,15 @@ int ProcessInput();
 int Update();
 int Render();
 
-int gameEnding_bad();
-int gameStage_prolog();
-int gameStage_1();
-int gameStage_2();
-
 int gameState = 0;
 int TitleMenu = 1;
 int gameStage = 1;
 
-
-int RenderLogo() {
-	move_cursor(1, 5);
-	printf("\n");
-	printf("\n");
-	printf("                                                         ,!**!,          ,,,                                                                                                                                  \n");
-	printf("                                                       ,$!-'~#$=     .=$$;#:$:.                                                                                                                               \n");
-	printf("                                                      .#=.   *@@=   #@$= ' !##$,                                                                                                                             \n");
-	printf("                                                           ,*@*~  ,$@@,     -#@+,   .   *&            #$         #$                                                                                                   \n");
-	printf("                                                        ,;=@#=!   ~@@~      ~@@@,  ~$.  *#'  #$$#!$##$@$ #$#$$#$#@#                                                                                                   \n");
-	printf("                                                         ..,=@@= .#@@~      -$@#, ,$~#. *#$@    ,$:$# @$    #$   $#                                                                                                \n");
-	printf("                                                             $@@*,#@@~      -$@; ,$' ~& *@    ,$#,~#  #$##4 $$,  #&                                                                                        \n");
-	printf("                                                             =@@$-@@@~.    -#@@-   !$$!#$$  ,$' ,#'   @#  ,#''$;,##                                                                                         \n");
-	printf("                                                     ~~,    ,$@@!.'!@#,.  ,;$#-    #;'''''            @$ '     ''@$                                                                                        \n");
-	printf("                                                      =@@~.=@@:'    -#@~,$$#=,     $#&#&#&'                      $#!,                    ''@#$'                                                                                    \n");
-	printf("                                                         ''''          '''                    -#@;##$-@#       ,#';#,              @#&@&&   &#                                                           \n");
-	printf("                                                                                              +@;    @#      .&' @ '#,-,  ~==;. $  $   ;$'&$$@                                                                \n");
-	printf("                                                                                              +@;    @#  .!$#.&#$@$###@$ ~/''$;.$  $,,,@#   $#                                                                   \n");
-	printf("                                                                         .-                   ,##$@*&:#     ,,,,,,,,,,   #.  .*,#  $#$$#$.$$#$                                                                   \n");
-	printf("                                                                          .-                     ;@,        ''''''''$&   !@  ~;.$           #@                                                             \n");
-	printf("                                                                           :#-                   ;@,        ~&&#&@!=@#    .$#.  $   &$.                                                                       \n");
-	printf("                                                                          -:##&,            #$#&$#@#####!,   $@,,,,,,,,          ,  #$@#&@#&&$#@#<,,. .=                                                                    \n");
-	printf("                                                                      ~~   :@@-                 ~;#@!                                                                                    \n");
-	printf("                                                           '&#@@@#&#@$@@#. :@@-    '$&#~   -@@*  ,$@-            ';#**.                                                                                       \n");
-	printf("                                                            .$@@~    *@@;  :@@-     '#@:    @@!  ~#@.       #     .*@#,                                                                                       \n");
-	printf("                                                             $@@     *@@   ,$@#@##~ -@@#$$@#@#*##@@@.      *@=     ;@=.                                                                             \n");
-	printf("                                                             $@@     =@@   -@@;'    -@@+   @@$   !@;      ~#@:     ;@=!$@;,    .'&*    #@@$#&-$      ;##  #&.                                                  \n");
-	printf("                                                            .#@@    ,=@@   -@@~     -##&@$$&@#   !#      ,=@!*     !@!~~~-#!$&$*.#:    $&    ,# @#&#$;$#  &&......                                                  \n");
-	printf("                                                            *@@@#$$=#@=@   ~@@~        :$=,     !@#,    -#!. @@*  .!@-       &$  @$#*, &#$$$$-@ #$    ##. ''''''''                                            \n");
-	printf("                                                           ''*=      !,    ;@@~         *@@     ;@@,   -@!    $@$ ,=@-      ~$'  @        $$ ~$ #$    @#$'@#&#@&#@;  -~,.~.                                    \n");
-	printf("                                                                          ,#@#-         *@@@&#&$;@#, .,#;      @= -$@-     -$'   @    &#@$@$$@$ #$##$:#'  @#                .                                  \n");
-	printf("                                                                          ,@#:          *@@,    !@!               ~#@-           @      $$ .-,        #   $#@#$@##       ,,                                 \n");
-	printf("                                                                        ,:*!.           !##&@&#@#@*.         =@#   ~*.                  @$#$@$#@                          ~,                                   \n");
-	printf("                                                 ,        @&$&@$&                           ~@$-       .~~.  '@@                                                                                             \n");
-	printf("                                                ,#:.      #$   @$    ..    &          ,$~   ,@!        -@:    @@;        ,               ,           $        $                                               \n");
-	printf("                                               -#*${      #$#$$@$    $#,   $~        -$@;   ;@!       =#=;,   @#    ,#,  $=  .#.   #,   ,#-    @#    #: @$#$@ #                                                \n");
-	printf("                                             .='    #@  @&#$&@$@#&!,!#  $!.#        -@@$,    @@=*@- !@'  :@;  @#   ~# &; ## #& '$@##   ,$  @,  #$    #  @$    #                                                \n");
-	printf("                                                :=,       , ~#      ;#  = .$       -@!  !@: .@#:      .,,,,,.;!    :#,#! $,  '!' , $ @&#$@&@$@:#$.,. @  #$    #@##^                                            \n");
-	printf("                                            @#@#$$#@#!#@ :@~~*       '#   .$      ~@!   .$@ .@$,      @$#$@$##@.    :!:  $.    $ #     $#,,#   $&@$# @  @@#%# #                                               \n");
-	printf("                                            ~            :@*;;;;:          ~   -::~      -  .@=              #$          #   ;,*$.;:   $@''#         @        #       . -                                   \n");
-	printf("                                                         .~~~~~~~             .,~           .@=       ,@=&@#&@#          ~ '.$ ,$ ,#   @&$#$         ~       .~           ,                                   \n");
-	printf("                                 .                                                          *#~       :@*      *                                            -                                                 \n");
-	printf("                                ;.                     .                                    #$       .#@@$$$$##@;                                           :            .!                                   \n");
-	printf("                                                                                           ;=           -                               , ~=##$*~.                        $                                    \n");
-	printf("                                                   .                                     '                                           ,=-           :$=.     ;,         .#.                                     \n");
-	printf("                                 :  .,...    ..                                                                                     ,-                 ,!**##=;~--~;:!-                                        \n");
-	printf("                                   ,;*!;~.                                                                      ..                 !                     ,;;. ..                                              \n");
-	printf("                                                                                                         .      ~-  -.             .                   .~.    --                                              \n");
-	printf("                                                                                                                    -, ~-            .                ~.-                                                     \n");
-	printf("                                                                                                                      -, -;.                       ~ ,                                                       \n");
-	printf("                                                                                                                         ., :!.               .:. .                                                         \n");
-	printf("                                                                                                                              ..    -;**!!==:.   .                                                            \n");
-
-	return 0;
-}
-
-int RenderTitle() {
-
-
-	set_color(FONT_COLOR_WHITE);
-	move_cursor(90, 16);
-	printf("                     ");
-	move_cursor(90, 17);
-	printf(" 30ÏÇ¥ ÍπåÏßÄ Î™®ÏÜîÏù¥Î©¥");
-	move_cursor(82, 18);
-	printf("ÎßàÎ≤ïÏÇ¨Í∞Ä ÎêúÎã§Îäî ÏÜåÎ¨∏Ïù¥ ÏÇ¨Ïã§Ïù¥ÏóàÏäµÎãàÎã§ ");
-	move_cursor(90, 19);
-	printf("                     ");
-
-	printf(COLOR_RESET);
-
-	if (TitleMenu == 1)
-	{
-		set_color(BG_COLOR_YELLOW);
-	}
-	move_cursor(92, 21);
-	printf("  1. Í≤åÏûÑ  ÏãúÏûë  ");
-	printf(COLOR_RESET);
-
-	if (TitleMenu == 2)
-	{
-		set_color(BG_COLOR_YELLOW);
-	}
-	move_cursor(92, 23);
-	printf("  2. ÌîåÎ†àÏù¥ Î∞©Î≤ï  ");
-	printf(COLOR_RESET);
-
-	if (TitleMenu == 3)
-	{
-		set_color(BG_COLOR_YELLOW);
-	}
-	move_cursor(92, 25);
-	printf("  3. ÌåÄ ÏÜåÍ∞ú  ");
-	printf(COLOR_RESET);
-
-	if (TitleMenu == 4)
-	{
-		set_color(BG_COLOR_YELLOW);
-	}
-	move_cursor(92, 27);
-	printf("  4. Í≤åÏûÑ Ï¢ÖÎ£å  ");
-	printf(COLOR_RESET);
-
-	return 0;
-}
-
-void ClearStoryArea()
-{
-	int story_left = 1;
-	int story_right = 125;
-	int story_top = 1;
-	int story_bottom = 50;
-
-	for (int y = story_top + 1; y < story_bottom; y++)
-	{
-		for (int x = story_left + 1; x < story_right; x++)
-		{
-			move_cursor(x, y);
-			printf(" "); 
-		}
-	}
-}
-
-void ClearMenuInside()
-{
-	int menu_left = 135;
-	int menu_right = 180;
-	int menu_top = 1;
-	int menu_bottom = 35;
-
-	for (int y = menu_top + 5; y < menu_bottom; y++)
-	{
-		for (int x = menu_left + 1; x < menu_right; x++)
-		{
-			move_cursor(x, y);
-			printf(" ");
-		}
-	}
-}
-
-int game_screen() {
-	int story_left = 1;
-	int story_right = 125;
-	int story_height = 50;
-	int story_top = 1;
-
-	int menu_left = 135;
-	int menu_right = 180;
-	int menu_height = 35;
-	int menu_top = 1;
-
-	int story_bottom = story_top + story_height - 1;
-	int menu_bottom = menu_top + menu_height - 1;
-
-	int input_left = menu_left;
-	int input_right = menu_right;
-	int input_top = menu_bottom + 2; 
-	int input_bottom = input_top + 6; 
-
-	// ÏôºÏ™Ω Ïä§ÌÜ†Î¶¨Ï∞Ω
-	for (int x = story_left; x <= story_right; x++)
-	{
-		move_cursor(x, story_top);
-
-		if (x == story_left) printf("‚îå");
-		else if (x == story_right) printf("‚îê");
-		else printf("‚îÄ");
-	}
-
-	for (int y = story_top + 1; y < story_bottom; y++)
-	{
-		move_cursor(story_left, y);
-		printf("‚îÇ");
-
-		move_cursor(story_right, y);
-		printf("‚îÇ");
-	}
-
-	for (int x = story_left; x <= story_right; x++)
-	{
-		move_cursor(x, story_bottom);
-
-		if (x == story_left) printf("‚îî");
-		else if (x == story_right) printf("‚îò");
-		else printf("‚îÄ");
-	}
-
-
-	// Ïò§Î•∏Ï™Ω ÏÑ†ÌÉùÏßÄÏ∞Ω
-	for (int x = menu_left; x <= menu_right; x++)
-	{
-		move_cursor(x, menu_top);
-
-		if (x == menu_left) printf("‚îå");
-		else if (x == menu_right) printf("‚îê");
-		else printf("‚îÄ");
-	}
-
-	for (int y = menu_top + 1; y < menu_bottom; y++)
-	{
-		move_cursor(menu_left, y);
-		printf("‚îÇ");
-
-		move_cursor(menu_right, y);
-		printf("‚îÇ");
-	}
-
-	for (int x = menu_left; x <= menu_right; x++)
-	{
-		move_cursor(x, menu_bottom);
-
-		if (x == menu_left) printf("‚îî");
-		else if (x == menu_right) printf("‚îò");
-		else printf("‚îÄ");
-	}
-
-
-	// Ïò§Î•∏Ï™Ω ÌïòÎã® ÏûÖÎ†•Ï∞Ω
-	for (int x = input_left; x <= input_right; x++)
-	{
-		move_cursor(x, input_top);
-
-		if (x == input_left) printf("‚îå");
-		else if (x == input_right) printf("‚îê");
-		else printf("‚îÄ");
-	}
-
-	for (int y = input_top + 1; y < input_bottom; y++)
-	{
-		move_cursor(input_left, y);
-		printf("‚îÇ");
-
-		move_cursor(input_right, y);
-		printf("‚îÇ");
-	}
-
-	for (int x = input_left; x <= input_right; x++)
-	{
-		move_cursor(x, input_bottom);
-
-		if (x == input_left) printf("‚îî");
-		else if (x == input_right) printf("‚îò");
-		else printf("‚îÄ");
-	}
-
-
-
-	move_cursor(153, 4);
-	printf("< ÏãúÏä§ÌÖú >");
-
-	move_cursor(input_left + 2, input_top + 3);
-	printf("ÏÑ†ÌÉùÏßÄ > ");
-
-	move_cursor(146, 40);
-	printf("                  ");
-
-	move_cursor(137, 45);
-	printf("                             ");
-
-}
-
-int RenderGame() {
-
-	game_screen();
-
-	//gameStage -2 : Î∞∞ÎìúÏóîÎî©
-	//gameStage 0 : ÌîÑÎ°§Î°úÍ∑∏
-	//gameStage 1 : Ïä§ÌÖåÏù¥ÏßÄ 1
-	//gameStage 2 : Ïä§ÌÖåÏù¥ÏßÄ 2
-
-	switch (gameStage) {
-		case -2 : 
-			gameEnding_bad();
-			break;
-		case 0:
-			gameStage_prolog();
-			break;
-		case 1 : 
-			gameStage_1();
-			break;
-		case 2:
-			gameStage_2();
-			break;
-	}
-
-
-
-
-	return 0;
-}
-
-int RenderHelp() {
-	move_cursor(1, 1);
-
-	printf("Í≤åÏûÑÏÑ§Î™Ö ÌéòÏù¥ÏßÄ\n");
-
-	return 0;
-}
-
-int RenderCredits() {
-	move_cursor(1, 1);
-
-	printf("ÌåÄ ÏÜåÍ∞ú ÌéòÏù¥ÏßÄ\n");
-
-	return 0;
-}
-
-
-int ProcessTitleInput() {
-	char input = _getch();
-	switch (input)
-	{
-	case 72:
-		if (TitleMenu > 1)
-		{
-			TitleMenu = TitleMenu - 1;
-		}
-		break;
-	case 80:
-		if (TitleMenu < 4)
-		{
-			TitleMenu = TitleMenu + 1;
-		}
-		break;
-	case 13:
-		if (TitleMenu == 1)
-			gameState = GAMESTATE_GAME_ENTER;
-		if (TitleMenu == 2)
-			gameState = GAMESTATE_HELP_ENTER;
-		if (TitleMenu == 3)
-			gameState = GAMESTATE_CREDITS_ENTER;
-		if (TitleMenu == 4)
-			gameState = GAMESTATE_EXIT_ANIMATION;
-		break;
-	case 27:
-		gameState = GAMESTATE_EXIT_ANIMATION;
-		break;
-	}
-
-	return 0;
-}
-
-int ProcessMenuInput() {
-	char input = _getch();
-	switch (input)
-	{
-	case 27:
-		gameState = GAMESTATE_TITLE_ENTER;
-		break;
-	}
-
-	return 0;
-}
-
-int ProcessGameInput() {
-	if (!_kbhit())
-		return 0;
-
-	char input = _getch();
-
-	switch (input)
-	{
-	case 27:
-		gameState = GAMESTATE_TITLE_ENTER;
-		break;
-	case 77:
-		if(gameStage == 0) gameStage = 1; 
-		break;
-
-	}
-
-	return 0;
-}
-
-
+/*-----------------------------------------------------------------------------------------------------------*/
 
 int main()
 {
-	gameState = GAMESTATE_START;
-	printf("\033[?25l"); //ÎßàÏö∞Ïä§ Ïª§ÏÑú Ïà®ÍπÄ
+	printf("\033[?25l"); //∏∂øÏΩ∫ ƒøº≠ º˚±Ë
 
 	while (gameState != GAMESTATE_QUIT)
 	{
@@ -586,17 +199,395 @@ int Render()
 		break;
 
 	case GAMESTATE_TITLE_EXIT:
-		printf("\nÍ≤åÏûÑ Ï¢ÖÎ£å Ï§ë...\n");
+		printf("\n∞‘¿” ¡æ∑· ¡ﬂ...\n");
 		break;
 
 	case GAMESTATE_QUIT:
 		system("cls");
-		printf("\n\n Í≤åÏûÑ Ï¢ÖÎ£å.");
+		printf("\n\n ∞‘¿” ¡æ∑·.");
 		break;
 	}
 
 	return 0;
 }
+
+/*-----------------------------------------------------------------------------------------------------------*/
+
+int ProcessTitleInput() {
+	char input = _getch();
+	switch (input)
+	{
+	case 72:
+		if (TitleMenu > 1)
+		{
+			TitleMenu = TitleMenu - 1;
+		}
+		break;
+	case 80:
+		if (TitleMenu < 4)
+		{
+			TitleMenu = TitleMenu + 1;
+		}
+		break;
+	case 13:
+		if (TitleMenu == 1)
+			gameState = GAMESTATE_GAME_ENTER;
+		if (TitleMenu == 2)
+			gameState = GAMESTATE_HELP_ENTER;
+		if (TitleMenu == 3)
+			gameState = GAMESTATE_CREDITS_ENTER;
+		if (TitleMenu == 4)
+			gameState = GAMESTATE_EXIT_ANIMATION;
+		break;
+	case 27:
+		gameState = GAMESTATE_EXIT_ANIMATION;
+		break;
+	}
+
+	return 0;
+}
+
+int ProcessMenuInput() {
+	char input = _getch();
+	switch (input)
+	{
+	case 27:
+		gameState = GAMESTATE_TITLE_ENTER;
+		break;
+	}
+
+	return 0;
+}
+
+int ProcessGameInput() {
+	if (!_kbhit())
+		return 0;
+
+	char input = _getch();
+
+	switch (input)
+	{
+	case 27:
+		gameState = GAMESTATE_TITLE_ENTER;
+		break;
+	case 77:
+		if (gameStage == 0) gameStage = 1;
+		break;
+
+	}
+
+	return 0;
+}
+
+/*-----------------------------------------------------------------------------------------------------------*/
+
+int RenderGame() {
+
+	AddGameScreen();
+
+	//gameStage -2 : πËµÂø£µ˘
+	//gameStage 0 : «¡∑—∑Œ±◊
+	//gameStage 1 : Ω∫≈◊¿Ã¡ˆ 1
+	//gameStage 2 : Ω∫≈◊¿Ã¡ˆ 2
+
+	switch (gameStage) {
+	case -2:
+		Ending_bad();
+		break;
+	case 0:
+		gameStage_prolog();
+		break;
+	case 1:
+		gameStage_1();
+		break;
+	case 2:
+		gameStage_2();
+		break;
+	}
+	return 0;
+}
+
+int RenderHelp() {
+	move_cursor(1, 1);
+
+	printf("∞‘¿”º≥∏Ì ∆‰¿Ã¡ˆ\n");
+
+	return 0;
+}
+
+int RenderCredits() {
+	move_cursor(1, 1);
+
+	printf("∆¿ º“∞≥ ∆‰¿Ã¡ˆ\n");
+
+	return 0;
+}
+
+int RenderLogo() {
+	move_cursor(1, 5);
+	printf("\n");
+	printf("\n");
+	printf("                                                         ,!**!,          ,,,                                                                                                                                  \n");
+	printf("                                                       ,$!-'~#$=     .=$$;#:$:.                                                                                                                               \n");
+	printf("                                                      .#=.   *@@=   #@$= ' !##$,                                                                                                                             \n");
+	printf("                                                           ,*@*~  ,$@@,     -#@+,   .   *&            #$         #$                                                                                                   \n");
+	printf("                                                        ,;=@#=!   ~@@~      ~@@@,  ~$.  *#'  #$$#!$##$@$ #$#$$#$#@#                                                                                                   \n");
+	printf("                                                         ..,=@@= .#@@~      -$@#, ,$~#. *#$@    ,$:$# @$    #$   $#                                                                                                \n");
+	printf("                                                             $@@*,#@@~      -$@; ,$' ~& *@    ,$#,~#  #$##4 $$,  #&                                                                                        \n");
+	printf("                                                             =@@$-@@@~.    -#@@-   !$$!#$$  ,$' ,#'   @#  ,#''$;,##                                                                                         \n");
+	printf("                                                     ~~,    ,$@@!.'!@#,.  ,;$#-    #;'''''            @$ '     ''@$                                                                                        \n");
+	printf("                                                      =@@~.=@@:'    -#@~,$$#=,     $#&#&#&'                      $#!,                    ''@#$'                                                                                    \n");
+	printf("                                                         ''''          '''                    -#@;##$-@#       ,#';#,              @#&@&&   &#                                                           \n");
+	printf("                                                                                              +@;    @#      .&' @ '#,-,  ~==;. $  $   ;$'&$$@                                                                \n");
+	printf("                                                                                              +@;    @#  .!$#.&#$@$###@$ ~/''$;.$  $,,,@#   $#                                                                   \n");
+	printf("                                                                         .-                   ,##$@*&:#     ,,,,,,,,,,   #.  .*,#  $#$$#$.$$#$                                                                   \n");
+	printf("                                                                          .-                     ;@,        ''''''''$&   !@  ~;.$           #@                                                             \n");
+	printf("                                                                           :#-                   ;@,        ~&&#&@!=@#    .$#.  $   &$.                                                                       \n");
+	printf("                                                                          -:##&,            #$#&$#@#####!,   $@,,,,,,,,          ,  #$@#&@#&&$#@#<,,. .=                                                                    \n");
+	printf("                                                                      ~~   :@@-                 ~;#@!                                                                                    \n");
+	printf("                                                           '&#@@@#&#@$@@#. :@@-    '$&#~   -@@*  ,$@-            ';#**.                                                                                       \n");
+	printf("                                                            .$@@~    *@@;  :@@-     '#@:    @@!  ~#@.       #     .*@#,                                                                                       \n");
+	printf("                                                             $@@     *@@   ,$@#@##~ -@@#$$@#@#*##@@@.      *@=     ;@=.                                                                             \n");
+	printf("                                                             $@@     =@@   -@@;'    -@@+   @@$   !@;      ~#@:     ;@=!$@;,    .'&*    #@@$#&-$      ;##  #&.                                                  \n");
+	printf("                                                            .#@@    ,=@@   -@@~     -##&@$$&@#   !#      ,=@!*     !@!~~~-#!$&$*.#:    $&    ,# @#&#$;$#  &&......                                                  \n");
+	printf("                                                            *@@@#$$=#@=@   ~@@~        :$=,     !@#,    -#!. @@*  .!@-       &$  @$#*, &#$$$$-@ #$    ##. ''''''''                                            \n");
+	printf("                                                           ''*=      !,    ;@@~         *@@     ;@@,   -@!    $@$ ,=@-      ~$'  @        $$ ~$ #$    @#$'@#&#@&#@;  -~,.~.                                    \n");
+	printf("                                                                          ,#@#-         *@@@&#&$;@#, .,#;      @= -$@-     -$'   @    &#@$@$$@$ #$##$:#'  @#                .                                  \n");
+	printf("                                                                          ,@#:          *@@,    !@!               ~#@-           @      $$ .-,        #   $#@#$@##       ,,                                 \n");
+	printf("                                                                        ,:*!.           !##&@&#@#@*.         =@#   ~*.                  @$#$@$#@                          ~,                                   \n");
+	printf("                                                 ,        @&$&@$&                           ~@$-       .~~.  '@@                                                                                             \n");
+	printf("                                                ,#:.      #$   @$    ..    &          ,$~   ,@!        -@:    @@;        ,               ,           $        $                                               \n");
+	printf("                                               -#*${      #$#$$@$    $#,   $~        -$@;   ;@!       =#=;,   @#    ,#,  $=  .#.   #,   ,#-    @#    #: @$#$@ #                                                \n");
+	printf("                                             .='    #@  @&#$&@$@#&!,!#  $!.#        -@@$,    @@=*@- !@'  :@;  @#   ~# &; ## #& '$@##   ,$  @,  #$    #  @$    #                                                \n");
+	printf("                                                :=,       , ~#      ;#  = .$       -@!  !@: .@#:      .,,,,,.;!    :#,#! $,  '!' , $ @&#$@&@$@:#$.,. @  #$    #@##^                                            \n");
+	printf("                                            @#@#$$#@#!#@ :@~~*       '#   .$      ~@!   .$@ .@$,      @$#$@$##@.    :!:  $.    $ #     $#,,#   $&@$# @  @@#%# #                                               \n");
+	printf("                                            ~            :@*;;;;:          ~   -::~      -  .@=              #$          #   ;,*$.;:   $@''#         @        #       . -                                   \n");
+	printf("                                                         .~~~~~~~             .,~           .@=       ,@=&@#&@#          ~ '.$ ,$ ,#   @&$#$         ~       .~           ,                                   \n");
+	printf("                                 .                                                          *#~       :@*      *                                            -                                                 \n");
+	printf("                                ;.                     .                                    #$       .#@@$$$$##@;                                           :            .!                                   \n");
+	printf("                                                                                           ;=           -                               , ~=##$*~.                        $                                    \n");
+	printf("                                                   .                                     '                                           ,=-           :$=.     ;,         .#.                                     \n");
+	printf("                                 :  .,...    ..                                                                                     ,-                 ,!**##=;~--~;:!-                                        \n");
+	printf("                                   ,;*!;~.                                                                      ..                 !                     ,;;. ..                                              \n");
+	printf("                                                                                                         .      ~-  -.             .                   .~.    --                                              \n");
+	printf("                                                                                                                    -, ~-            .                ~.-                                                     \n");
+	printf("                                                                                                                      -, -;.                       ~ ,                                                       \n");
+	printf("                                                                                                                         ., :!.               .:. .                                                         \n");
+	printf("                                                                                                                              ..    -;**!!==:.   .                                                            \n");
+
+	return 0;
+}
+
+
+int RenderTitle() {
+
+	set_color(FONT_COLOR_WHITE);
+	move_cursor(90, 16);
+	printf("                     ");
+	move_cursor(90, 17);
+	printf(" 30ªÏ ±Ó¡ˆ ∏º÷¿Ã∏È");
+	move_cursor(82, 18);
+	printf("∏∂π˝ªÁ∞° µ»¥Ÿ¥¬ º“πÆ¿Ã ªÁΩ«¿Ãæ˙Ω¿¥œ¥Ÿ ");
+	move_cursor(90, 19);
+	printf("                     ");
+
+	printf(COLOR_RESET);
+
+	if (TitleMenu == 1)
+	{
+		set_color(BG_COLOR_YELLOW);
+	}
+	move_cursor(92, 21);
+	printf("  1. ∞‘¿”  Ω√¿€  ");
+	printf(COLOR_RESET);
+
+	if (TitleMenu == 2)
+	{
+		set_color(BG_COLOR_YELLOW);
+	}
+	move_cursor(92, 23);
+	printf("  2. «√∑π¿Ã πÊπ˝  ");
+	printf(COLOR_RESET);
+
+	if (TitleMenu == 3)
+	{
+		set_color(BG_COLOR_YELLOW);
+	}
+	move_cursor(92, 25);
+	printf("  3. ∆¿ º“∞≥  ");
+	printf(COLOR_RESET);
+
+	if (TitleMenu == 4)
+	{
+		set_color(BG_COLOR_YELLOW);
+	}
+	move_cursor(92, 27);
+	printf("  4. ∞‘¿” ¡æ∑·  ");
+	printf(COLOR_RESET);
+
+	return 0;
+}
+
+/*-----------------------------------------------------------------------------------------------------------*/
+
+int AddGameScreen() {
+	int story_left = 1;
+	int story_right = 125;
+	int story_height = 50;
+	int story_top = 1;
+
+	int menu_left = 135;
+	int menu_right = 180;
+	int menu_height = 35;
+	int menu_top = 1;
+
+	int story_bottom = story_top + story_height - 1;
+	int menu_bottom = menu_top + menu_height - 1;
+
+	int input_left = menu_left;
+	int input_right = menu_right;
+	int input_top = menu_bottom + 2;
+	int input_bottom = input_top + 6;
+
+	// øﬁ¬  Ω∫≈‰∏Æ√¢
+	for (int x = story_left; x <= story_right; x++)
+	{
+		move_cursor(x, story_top);
+
+		if (x == story_left) printf("¶£");
+		else if (x == story_right) printf("¶§");
+		else printf("¶°");
+	}
+
+	for (int y = story_top + 1; y < story_bottom; y++)
+	{
+		move_cursor(story_left, y);
+		printf("¶¢");
+
+		move_cursor(story_right, y);
+		printf("¶¢");
+	}
+
+	for (int x = story_left; x <= story_right; x++)
+	{
+		move_cursor(x, story_bottom);
+
+		if (x == story_left) printf("¶¶");
+		else if (x == story_right) printf("¶•");
+		else printf("¶°");
+	}
+
+
+	// ø¿∏•¬  º±≈√¡ˆ√¢
+	for (int x = menu_left; x <= menu_right; x++)
+	{
+		move_cursor(x, menu_top);
+
+		if (x == menu_left) printf("¶£");
+		else if (x == menu_right) printf("¶§");
+		else printf("¶°");
+	}
+
+	for (int y = menu_top + 1; y < menu_bottom; y++)
+	{
+		move_cursor(menu_left, y);
+		printf("¶¢");
+
+		move_cursor(menu_right, y);
+		printf("¶¢");
+	}
+
+	for (int x = menu_left; x <= menu_right; x++)
+	{
+		move_cursor(x, menu_bottom);
+
+		if (x == menu_left) printf("¶¶");
+		else if (x == menu_right) printf("¶•");
+		else printf("¶°");
+	}
+
+
+	// ø¿∏•¬  «œ¥‹ ¿‘∑¬√¢
+	for (int x = input_left; x <= input_right; x++)
+	{
+		move_cursor(x, input_top);
+
+		if (x == input_left) printf("¶£");
+		else if (x == input_right) printf("¶§");
+		else printf("¶°");
+	}
+
+	for (int y = input_top + 1; y < input_bottom; y++)
+	{
+		move_cursor(input_left, y);
+		printf("¶¢");
+
+		move_cursor(input_right, y);
+		printf("¶¢");
+	}
+
+	for (int x = input_left; x <= input_right; x++)
+	{
+		move_cursor(x, input_bottom);
+
+		if (x == input_left) printf("¶¶");
+		else if (x == input_right) printf("¶•");
+		else printf("¶°");
+	}
+
+
+
+	move_cursor(153, 4);
+	printf("< Ω√Ω∫≈€ >");
+
+	move_cursor(input_left + 2, input_top + 3);
+	printf("º±≈√¡ˆ > ");
+
+	move_cursor(146, 40);
+	printf("                  ");
+
+	move_cursor(137, 45);
+	printf("                             ");
+
+
+	return 0;
+}
+
+void RemoveStoryArea()
+{
+	int story_left = 1;
+	int story_right = 125;
+	int story_top = 1;
+	int story_bottom = 50;
+
+	for (int y = story_top + 1; y < story_bottom; y++)
+	{
+		for (int x = story_left + 1; x < story_right; x++)
+		{
+			move_cursor(x, y);
+			printf(" ");
+		}
+	}
+}
+
+void RemoveMenuInside()
+{
+	int menu_left = 135;
+	int menu_right = 180;
+	int menu_top = 1;
+	int menu_bottom = 35;
+
+	for (int y = menu_top + 5; y < menu_bottom; y++)
+	{
+		for (int x = menu_left + 1; x < menu_right; x++)
+		{
+			move_cursor(x, y);
+			printf(" ");
+		}
+	}
+}
+
+/*-----------------------------------------------------------------------------------------------------------*/
 
 int prolog_story_index = 0;
 
@@ -605,16 +596,16 @@ int gameStage_prolog() {
 	if (prolog_story_index == 0) {
 
 		move_cursor(5, 3);
-		printf("ÌîÑÎ°§Î°úÍ∑∏");
+		printf("«¡∑—∑Œ±◊");
 
 
 		Sleep(2000);
 		move_cursor(5, 5);
-		printf("Í≤ÄÏùÄ ÌôîÎ©¥.");
+		printf("∞À¿∫ »≠∏È.");
 
 		Sleep(2000);
 		move_cursor(5, 6);
-		printf("ÎÇ°ÏùÄ ÏïåÎûåÏãúÍ≥Ñ Ïà´ÏûêÍ∞Ä Ï≤úÏ≤úÌûà Î∞îÎÄêÎã§.");
+		printf("≥∞¿∫ æÀ∂˜Ω√∞Ë º˝¿⁄∞° √µ√µ»˜ πŸ≤Ô¥Ÿ.");
 
 		Sleep(1000);
 		move_cursor(5, 8);
@@ -626,72 +617,72 @@ int gameStage_prolog() {
 
 		Sleep(1000);
 		move_cursor(5, 8);
-		printf("ÏÇê‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ");
+		printf("ªﬂ¶°¶°¶°¶°¶°¶°¶°¶°¶°¶°");
 
 		Sleep(1000);
 		move_cursor(5, 10);
-		printf("ÏàúÍ∞Ñ ÌôîÎ©¥Ïù¥ Î≤àÏ©çÏù∏Îã§.");
+		printf("º¯∞£ »≠∏È¿Ã π¯¬Ω¿Œ¥Ÿ.");
 
 		Sleep(2000);
-		ClearStoryArea();
+		RemoveStoryArea();
 
 		prolog_story_index = 1;
 	}
 	if (prolog_story_index == 1) {
 		Sleep(2000);
 		move_cursor(5, 3);
-		printf("ÎààÏùÑ Îú¨ ÎãπÏã†. ÏõêÎ£∏ Ï≤úÏû•.");
+		printf("¥´¿ª ∂· ¥ÁΩ≈. ø¯∑Î √µ¿Â.");
 
 		Sleep(2000);
 		move_cursor(5, 4);
-		printf("ÎÑêÎ∏åÎü¨ÏßÑ ÏªµÎùºÎ©¥, Î®ºÏßÄ ÏåìÏù∏ ÌÇ§Î≥¥Îìú, Î™®ÎãàÌÑ∞ ÏÜç Ï†ïÏßÄÎêú ÎØ∏Ïó∞Ïãú Í≤åÏûÑ ÌôîÎ©¥.");
+		printf("≥Œ∫Í∑Ø¡¯ ƒ≈∂Û∏È, ∏’¡ˆ Ω◊¿Œ ≈∞∫∏µÂ, ∏¥œ≈Õ º” ¡§¡ˆµ» πÃø¨Ω√ ∞‘¿” »≠∏È.");
 
 		Sleep(2000);
 		move_cursor(5, 5);
-		printf("Í∑∏Î¶¨Í≥† Ìú¥ÎåÄÌè∞ ÏïåÎ¶º.");
+		printf("±◊∏Æ∞Ì »ﬁ¥Î∆˘ æÀ∏≤.");
 
 
 
 		Sleep(2000);
 		move_cursor(5, 7);
-		printf("[ÏÉùÏùºÏùÑ Ï∂ïÌïòÎìúÎ¶ΩÎãàÎã§!]");
+		printf("[ª˝¿œ √‡«œ«’¥œ¥Ÿ!]");
 		move_cursor(5, 8);
-		printf("[ÎãπÏã†ÏùÄ Ïù¥Ï†ú ÏÑúÎ•∏ÏûÖÎãàÎã§.]");
+		printf("¥ÁΩ≈¿∫ ¿Ã¡¶ º≠∏•¿‘¥œ¥Ÿ.");
 
 		Sleep(2000);
 		move_cursor(5, 10);
-		printf("Ï£ºÏù∏Í≥µÏùÄ ÌïúÏ∞∏ ÌôîÎ©¥ÏùÑ Î∞îÎùºÎ≥¥Îã§ Ï§ëÏñºÍ±∞Î¶∞Îã§.");
+		printf("¡÷¿Œ∞¯¿∫ «—¬¸ »≠∏È¿ª πŸ∂Û∫∏¥Ÿ ¡ﬂæÛ∞≈∏∞¥Ÿ.");
 
 		Sleep(2000);
 		move_cursor(5, 12);
-		printf("‚Äú...ÎßùÌñàÎã§.‚Äù");
+		printf("°∞...∏¡«ﬂ¥Ÿ.°±");
 
 		Sleep(2000);
 		move_cursor(5, 14);
-		printf("Ïª¥Ìì®ÌÑ∞ ÌôîÎ©¥Ïù¥ ÏßÄÏßÅÍ±∞Î¶¨Î©∞ Ï†ïÏ≤¥Î∂àÎ™ÖÏùò Î¨∏Ïû•Ïù¥ Îñ†Ïò§Î•∏Îã§.");
+		printf("ƒƒ«ª≈Õ »≠∏È¿Ã ¡ˆ¡˜∞≈∏Æ∏Á ¡§√º∫“∏Ì¿« πÆ¿Â¿Ã ∂∞ø¿∏•¥Ÿ.");
 
 		Sleep(2000);
 		move_cursor(5, 16);
-		printf("„Äå30ÎÖÑÍ∞Ñ Ïó∞Ïï† Í≤ΩÌóòÏù¥ ÏóÜÎäî ÏûêÏóêÍ≤å ÏûêÍ≤©ÏùÑ Î∂ÄÏó¨Ìï©ÎãàÎã§.„Äç");
+		printf("°∏30≥‚∞£ ø¨æ÷ ∞Ê«Ë¿Ã æ¯¥¬ ¿⁄ø°∞‘ ¿⁄∞›¿ª ∫Œø©«’¥œ¥Ÿ.°π");
 
 		Sleep(2000);
 		move_cursor(5, 18);
-		printf("Îù†ÎßÅ.");
+		printf("∂Ï∏µ.");
 		Sleep(2000);
 		move_cursor(5, 19);
-		printf("! Ïπ≠Ìò∏ ÌöçÎìù : ÎåÄÎßàÎ≤ïÏÇ¨ !");
+		printf("! ƒ™»£ »πµÊ : ¥Î∏∂π˝ªÁ !");
 
 		Sleep(2000);
 		move_cursor(5, 21);
-		printf("‚ÄúÎ≠ê?‚Äù");
+		printf("°∞ππ?°±");
 
 		Sleep(2000);
 		move_cursor(5, 23);
-		printf("„ÄåÍ≥µÎûµ Ïã§Ìå®Ïãú. ÌïòÎ£®Î•º Ïû¨ÏãúÏûëÌï©ÎãàÎã§.„Äç");
+		printf("°∏∞¯∑´ Ω«∆–Ω√. «œ∑Á∏¶ ¿ÁΩ√¿€«’¥œ¥Ÿ.°π");
 
 		Sleep(2000);
 		move_cursor(5, 24);
-		printf("„ÄåÍ≥†Î∞±ÌïòÏßÄ Î™ªÌïòÎ©¥, ÎÇ¥ÏùºÎèÑ Ïò§ÏßÄ ÏïäÎäîÎã§.„Äç");
+		printf("°∏∞ÌπÈ«œ¡ˆ ∏¯«œ∏È, ≥ª¿œµµ ø¿¡ˆ æ ¥¬¥Ÿ.°π");
 
 		Sleep(2000);
 		move_cursor(5, 26);
@@ -699,24 +690,24 @@ int gameStage_prolog() {
 
 		Sleep(2000);
 		move_cursor(5, 28);
-		printf("„ÄäÏïÑÎ¨¥ÎûòÎèÑ 30ÏÇ¥ÍπåÏßÄ Î™®ÏÜîÏù¥Î©¥ ÎßàÎ≤ïÏÇ¨Í∞Ä ÎêòÎäî Í≤É Í∞ôÏäµÎãàÎã§„Äã");
+		printf("°∂æ∆π´∑°µµ 30ªÏ±Ó¡ˆ ∏º÷¿Ã∏È ∏∂π˝ªÁ∞° µ«¥¬ ∞Õ ∞∞Ω¿¥œ¥Ÿ°∑");
 		Sleep(4000);
 
-		ClearStoryArea();
+		RemoveStoryArea();
 
 		prolog_story_index = 2;
 	}
 
 	if (prolog_story_index == 2) {
 		move_cursor(5, 3);
-		printf(" ÌîÑÎ°§Î°úÍ∑∏ Ï¢ÖÎ£å. Ïò§Î•∏Ï™Ω Î∞©Ìñ•ÌÇ§Î•º ÎàÑÎ•¥Î©¥ Í≤åÏûÑÏùÑ ÏãúÏûëÌï©ÎãàÎã§.");
+		printf(" «¡∑—∑Œ±◊ ¡æ∑·. ø¿∏•¬  πÊ«‚≈∞∏¶ ¥©∏£∏È ∞‘¿”¿ª Ω√¿€«’¥œ¥Ÿ.");
 
 	}
 
 	return 0;
 }
 
-
+/*-----------------------------------------------------------------------------------------------------------*/
 
 int GetStageChoice_num()
 {
@@ -736,38 +727,38 @@ int GetStageChoice_num()
 		while (getchar() != '\n');
 
 		move_cursor(137, 45);
-		printf("ÏÑ†ÌÉùÏßÄ Ïà´ÏûêÎ•º ÏûÖÎ†•ÌïòÏÑ∏Ïöî");
+		printf("º±≈√¡ˆ º˝¿⁄∏¶ ¿‘∑¬«œººø‰");
 	}
 }
 
-int gameStage1_story_index = 0;
+int Stage1_story_index = 0;
 
 int gameStage_1() {
 
 	int stage1_choice = 0;
 
-	if (gameStage1_story_index == 0) {
-		ClearStoryArea();
-		ClearMenuInside();
+	if (Stage1_story_index == 0) {
+		RemoveStoryArea();
+		RemoveMenuInside();
 
 		move_cursor(5, 3);
-		printf("Îù†ÎßÅ.");
+		printf("∂Ï∏µ.");
 
 		Sleep(2000);
 
 		move_cursor(5, 5);
-		printf("[Ï≤´ Î≤àÏß∏ ÌÄòÏä§Ìä∏Í∞Ä ÎèÑÏ∞©ÌñàÏäµÎãàÎã§.]");
+		printf("[√π π¯¬∞ ƒ˘Ω∫∆Æ∞° µµ¬¯«ﬂΩ¿¥œ¥Ÿ.]");
 
 		Sleep(2000);
 
 		move_cursor(5, 7);
-		printf("ÌÄòÏä§Ìä∏ : Ïπ¥ÌéòÎ°ú Ïù¥ÎèôÌïòÏãúÏò§.");
+		printf("ƒ˘Ω∫∆Æ : ƒ´∆‰∑Œ ¿Ãµø«œΩ√ø¿.");
 
 
 		Sleep(2000);
 
 		move_cursor(5, 9);
-		printf("[Î™©Ï†ÅÏßÄÏóê ÎèÑÏ∞©ÌïòÎ©¥ Îã§Ïùå ÌÄòÏä§Ìä∏Í∞Ä Í∞úÎ∞©Îê©ÎãàÎã§.]");
+		printf("[∏Ò¿˚¡ˆø° µµ¬¯«œ∏È ¥Ÿ¿Ω ƒ˘Ω∫∆Æ∞° ∞≥πÊµÀ¥œ¥Ÿ.]");
 
 		Sleep(2000);
 		move_cursor(5, 11);
@@ -775,78 +766,77 @@ int gameStage_1() {
 
 		Sleep(2000);
 		move_cursor(5, 13);
-		printf("ÎãπÏã†ÏùÄ Ïπ¥ÌéòÎ°ú Ïù¥ÎèôÌïúÎã§.");
+		printf("¥ÁΩ≈¿∫ ƒ´∆‰∑Œ ¿Ãµø«—¥Ÿ.");
 
 		Sleep(4000);
 
-		ClearStoryArea();
+		RemoveStoryArea();
 
-		gameStage1_story_index = 1;
+		Stage1_story_index = 1;
 	}
 
-	if (gameStage1_story_index == 1) {
+	if (Stage1_story_index == 1) {
 
 		move_cursor(5, 3);
-		printf("Îî©Îèô.");
+		printf("µ˘µø.");
 
 		Sleep(2000);
 
 		move_cursor(5, 5);
-		printf("ÎãπÏã†ÏùÄ Í∑ºÏ≤ò Ïπ¥ÌéòÏùò Î¨∏ÏùÑ Ïó¥ÏóàÎã§.");
+		printf("¥ÁΩ≈¿∫ ±Ÿ√≥ ƒ´∆‰¿« πÆ¿ª ø≠æ˙¥Ÿ.");
 
 		Sleep(2000);
 
 		move_cursor(5, 7);
-		printf("ÌèâÎ≤îÌïú Ïπ¥ÌéòÏ≤òÎüº Î≥¥Ïù∏Îã§.");
+		printf("∆Úπ¸«— ƒ´∆‰√≥∑≥ ∫∏¿Œ¥Ÿ.");
 
 		Sleep(2000);
 
 		move_cursor(5, 9);
-		printf("ÌïòÏßÄÎßå ÏàúÍ∞Ñ.");
+		printf("«œ¡ˆ∏∏ º¯∞£.");
 
 		Sleep(2000);
 
 		move_cursor(5, 11);
-		printf("Îù†ÎßÅ.");
+		printf("∂Ï∏µ.");
 
 		Sleep(2000);
 
 		move_cursor(5, 13);
-		printf("[ÌÄòÏä§Ìä∏ Í∞±Ïã†]");
+		printf("[ƒ˘Ω∫∆Æ ∞ªΩ≈]");
 
 		Sleep(2000);
 
 		move_cursor(5, 15);
-		printf("[ÎãπÏã†Ïùò Í≥µÎûµ ÎåÄÏÉÅÏùÑ Ï∞æÏïÑÎÇ¥ÏãúÏò§.]");
+		printf("[¥ÁΩ≈¿« ∞¯∑´ ¥ÎªÛ¿ª √£æ∆≥ªΩ√ø¿.]");
 
 		Sleep(2000);
 
 		move_cursor(5, 17);
-		printf("[ÌõÑÎ≥¥Îäî Ï¥ù 3Î™ÖÏûÖÎãàÎã§.]");
+		printf("[»ƒ∫∏¥¬ √— 3∏Ì¿‘¥œ¥Ÿ.]");
 
 		Sleep(3000);
 
-		ClearStoryArea();
+		RemoveStoryArea();
 
-		gameStage1_story_index = 2;
+		Stage1_story_index = 2;		
 	}
 
-	if (gameStage1_story_index == 2) {
+	if (Stage1_story_index == 2) {
 		move_cursor(5, 3);
 		printf("      \n");
-		printf("      \n");
-		printf("                               Ïñ¥ÎîòÍ∞Ä ÏúÑÌóòÌï¥ Î≥¥Ïù¥Îäî Í∑∏ÎÖÄ   \n");
+		printf("                               æÓµÚ∞° ¿ß«Ë«ÿ ∫∏¿Ã¥¬ ±◊≥‡   \n");
 		printf("                                          ,..                                                                         \n");
 		printf("                                       .==*+==:,.                                                                         \n");
 		printf("                                      ;#$$!$####$-                                                                         \n");
 		printf("                                     =##$;'=$#@@##:                                                                           \n");
 		printf("                                     ~#@=   ;-=;##-                                                                         \n");
-		printf("                                     !@@-,    . ##!                Ïñ¥ÎîòÍ∞Ä ÏùµÏàôÌïú Í∑∏ÎÖÄ                                                    \n");
+		printf("                                     !@@-,    . ##!                    ø∑¡˝ º“≥‡                                                    \n");
 		printf("                                     @#@!,    -!##$-                                                                    \n");
 		printf("                                     $*@# -   ;@@@=,                     :;;--                                              \n");
-		printf("                                     ,;$@@#=-~####!                   ~=*==*!-.                                            \n");
+		printf("                                     ,;$@@*=-~####!                   ~=*==*!-.                                            \n");
 		printf("                                     ,:=@@@@$,.;#@#*.                 .*$**!*!::                                              \n");
-		printf("                                     ,~=@@@@@..;@$#~                  -$$=*:::!:                    Ï≤≠ÏàúÌïú Í∑∏ÎÖÄ                \n");
+		printf("                                     ,~=@@@@@..;@$#~                  -$$=*:::!:                    √ªº¯«— ±◊≥‡                \n");
 		printf("                                     .!#@@@@@~,,-#$::                 ;$!!   =$;.                                        \n");
 		printf("                                      -=@@@#--,.-#@#$                 :#!. - :$*,                    .;=****~               \n");
 		printf("                                     .=$##*,!     *$=-                 ,*#.,~*;.                   ~$$=$$$$==;,             \n");
@@ -854,50 +844,50 @@ int gameStage_1() {
 		printf("                                     *@#####., .. -$#@=-             ,,,,-!!-                   .;$$##$$$=!;$=!!~           \n");
 		printf("                                     @@@#####-,.. -#@$!.            . .!!:==$$$...              ~$#$###=$!,:=!=**-          \n");
 		printf("                                    $@@@@####=,.-..;@#=~            ,..:;-$$$#$...              -#$$$$$=;;.!**$=*,          \n");
-		printf("                         ,--,       .-@@@@@@@@-,.-.,.$@#~:           ,..-~,###$=:*~              !$#$ ;!=!:,:;!=$*           \n");
+		printf("                        ,--,       .-@@@@@@@@-,.-.,.$@#~:           ,..-~,###$=:*~              !$#$ ;!=!:,:;!=$*           \n");
 		printf("                        ,---       ;.#$@@@@@#,,#..,;#@#:*           -,. ;!@#$@$$#,.            .~$$# :,-:-..=*=$*           \n");
-		printf("                         .,-;,,,    =  @@@##@~~,#.  !#@#@,         !~.,..-#######;.             -=*$#@$      ~;$=!.          \n");
+		printf("                        .,-;,,,    =  @@@##@~~,#.  !#@#@,         !~.,..-#######;.             -=*$#@$      ~;$=!.          \n");
 		printf("                        =!-::,.  . ~  @@@@#$-~-#-,-~#@#=~        --~--,.,=@##$.;, .,           -!=$###      .!$#$~          \n");
-		printf("                       :!:-:::-. ,  .**#@##;,;~#. .;###*;        $*:~--,,-*$=;-,.  ---.       .;==$$$#=,  - !#$$=-.         \n");
-		printf("                       :#=:~!!~  -..-~;#@##=--~#, .!@@@:..       :!, ~-,~~!!!!~,,,.!!*:~      -,#$$#$$~-. ,=@#!$*:-         \n");
-		printf("                       :#;~-!:;;;.:-~:;#@@@@@~#,,..*#@#~-*   *:::;,,-...~::;!;,;,,-===#!       *@##$=;-,,*@#@##$;:-         \n");
-		printf("                       ::=;-####=,:::;:$##$$--,.,,.!=@=-,~  :!;;;!!--,-~!**!=;*--,====#-    :$$$=$$$$*-,,!@$#$==.~.         \n");
-		printf("                      :::=:.$#=!;. :;!;$=;~-......,=@@*  ~   :::!*!!!!*===#==::,, -;*,#    .!;;;!*===*~.-*@#$$=$!-          \n");
-		printf("                      :::=$=##*~~- ..-.,,.-,. . .,;##$!.        .,,~*::::~~-~-:..  ~*,$    *,.- ~*~!:~, ,*$##$==;.          \n");
-		printf("                      ::#$#!##=;::.      ~~-- ,,-:!@:*:!.          ,*-,,,.    .. . :$,!    !.    :..:-~...~=##$$$!.         \n");
-		printf(" ;;_+==*,;$==$=$=;;#@@$:#$#=$$==$=$=;;#@@$-~,..::~:=#.             ,*-,.      ,...,~$:-,   :.  ,  ---:.  .!*###$*~-         \n");
-		printf(" ::::::::;;;;*!*~--~::***!*~--~::**====@@#!!;-~~~~,;!*             ,*-,  ...  ,.,.~:==-,   ;.    . .,-.  ,::=##$=:.         \n");
-		printf(" :::::::::::::::::::::::.,:;;;;===***!*#@@###!~~~-,:-,            .,*-,...-!==*...;$$#. -!::..  .  .,.    ,-;##!:.          \n");
-		printf(" :::::::::::::::::::::::;:;:#$$$==!!!*=@@###@~,,--,.              .,*:,.;=$#$==~--###,!*$$#=,.   ,  ..     ::$##:           \n");
-		printf(" :::::::::::::::::::::::;$$===*;==*!!!!#@@##@--.,-,,              .,**..~$*$*!!.,*$#$;*;,,,!. . .-  .,,,-,.-*$$$$=,         \n");
-		printf(" :::::::::::::::::::::::=!!;~:;;*=*!!*!#@@##@,,,~,.,             ,.~=:.. =.=,     :=#$,*===*, , ,.-  .    ,,~*$$=!.         \n");
-		printf(" ::::::::::::::::::::::::::~~:;;*=*!;*;#@@##@,.,;,.             ,. -=-.,.=,;       *$$ $===*-.. ..,      . ~-!$$=!,         \n");
-		printf(" :::::::::::::::::::::::::::~:;;===*!=*#@@##@..,;,.             ..~-$,,;~=!-       ~#$ $====!, ..-,~        :!$$$~.         \n");
-		printf(" :::::::::::::::::::::::~:::~:;:*==*##@@@###@,.,!..            ... -$,,;-=!.       -## @#$$*-,. .:,.   ......,;=      .,,.  \n");
-		printf(" :::::::::::::::::::::::~:~:~:;;===*@@@@@@@@@!.,: . .         ,-,. -;.,*,=         ,=$ =#$$$!-,..,,.,,,,,,,,-~:,.,---~:!!;~-\n");
-		printf(" :::::::::::::::::::::::~::::;;;===#@@@@@@@@@$.,-.. ~        ,-,-. -~.-*.=          !#,~#$$$;~,....,-,-,----~;~::;;;;;;;;;;;\n");
-		printf(" :::::::::::::::::::::::~~:::;;!===#@@@@@@@#@$.-~., -       --.,,: --..! =          :##,###$;~,..:,,--~---~~:;;;;;;;;;;;;;;;\n");
-		printf(" :::::::::::::::::::::::~::::;!;===#@@@@@@@##$.~~..       .--.,,,. ,,..; =          ;#=-@###*~-...*.,-~-~~~~;:!;;;;;;;;;;;;;\n");
-		printf(" :::::::::::::::::::::::~~~:::;;===#@@@@@@@@@$.~~.        ,,,,,,---~-,.; =          ;=#:$###*~--~,=.,-~~~~~:!-:;;;;;;;;:;;;;\n");
-		printf(" :::::::::::::::::::::::~~~:::;!===##@@=@@@@@#,~~...       ~!:   ;~-..*=-=          ;~#*!$#$;~-,:,~. .--~::!*:;;;;;!!!~-:;;;\n");
+		printf("                        !:-:::-. ,  .**#@##;,;~#. .;###*;        $*:~--,,-*$=;-,.  ---.       .;==$$$#=,  - !#$$=-.         \n");
+		printf("                        #=:~!!~  -..-~;#@##=--~#, .!@@@:..       :!, ~-,~~!!!!~,,,.!!*:~      -,#$$#$$~-. ,=@#!$*:-         \n");
+		printf("                        #;~-!:;;;.:-~:;#@@@@@~#,,..*#@#~-*   *:::;,,-...~::;!;,;,,-===#!       *@##$=;-,,*@#@##$;:-         \n");
+		printf("                        :=;-####=,:::;:$##$$--,.,,.!=@=-,~  :!;;;!!--,-~!**!=;*--,====#-    :$$$=$$$$*-,,!@$#$==.~.         \n");
+		printf("                        :=:.$#=!;. :;!;$=;~-......,=@@*  ~   :::!*!!!!*===#==::,, -;*,#    .!;;;!*===*~.-*@#$$=$!-          \n");
+		printf("                        :=$=##*~~- ..-.,,.-,. . .,;##$!.        .,,~*::::~~-~-:..  ~*,$    *,.- ~*~!:~, ,*$##$==;.          \n");
+		printf("                        #$#!##=;::.      ~~-- ,,-:!@:*:!.          ,*-,,,.    .. . :$,!    !.    :..:-~...~=##$$$!.         \n");
+		printf("                        #$#=$$==$=$=;;#@@$-~,..::~:=#.             ,*-,.      ,...,~$:-,   :.  ,  ---:.  .!*###$*~-         \n");
+		printf("                       *!*~--~::**====@@#!!;-~~~~,;!*             ,*-,  ...  ,.,.~:==-,   ;.    . .,-.  ,::=##$=:.         \n");
+		printf("                        .,:;;;;===***!*#@@###!~~~-,:-,            .,*-,...-!==*...;$$#. -!::..  .  .,.    ,-;##!:.          \n");
+		printf("                        ;:;:#$$$==!!!*=@@###@~,,--,.              .,*:,.;=$#$==~--###,!*$$#=,.   ,  ..     ::$##:           \n");
+		printf("                        ;$$===*;==*!!!!#@@##@--.,-,,              .,**..~$*$*!!.,*$#$;*;,,,!. . .-  .,,,-,.-*$$$$=,         \n");
+		printf("                        =!!;~:;;*=*!!*!#@@##@,,,~,.,             ,.~=:.. =.=,     :=#$,*===*, , ,.-  .    ,,~*$$=!.         \n");
+		printf("                        :::~~:;;*=*!;*;#@@##@,.,;,.             ,. -=-.,.=,;       *$$ $===*-.. ..,      . ~-!$$=!,         \n");
+		printf("                        ::::~:;;===*!=*#@@##@..,;,.             ..~-$,,;~=!-       ~#$ $====!, ..-,~        :!$$$~.         \n");
+		printf("                        ~:::~:;:*==*##@@@###@,.,!..            ... -$,,;-=!.       -## @#$$*-,. .:,.   ......,;=      .,,.  \n");
+		printf("                        ~:~:~:;;===*@@@@@@@@@!.,: . .         ,-,. -;.,*,=         ,=$ =#$$$!-,..,,.,,,,,,,,-~:,.,---~:!!;~-\n");
+		printf("                        ~::::;;;===#@@@@@@@@@$.,-.. ~        ,-,-. -~.-*.=          !#,~#$$$;~,....,-,-,----~;~::;;;;;;;;;;;\n");
+		printf("                        ~~:::;;!===#@@@@@@@#@$.-~., -       --.,,: --..! =          :##,###$;~,..:,,--~---~~:;;;;;;;;;;;;;;;\n");
+		printf("                        ~::::;!;===#@@@@@@@##$.~~..       .--.,,,. ,,..; =          ;#=-@###*~-...*.,-~-~~~~;:!;;;;;;;;;;;;;\n");
+		printf("                        ~~~:::;;===#@@@@@@@@@$.~~.        ,,,,,,---~-,.; =          ;=#:$###*~--~,=.,-~~~~~:!-:;;;;;;;;:;;;;\n");
+		printf("                        ~~~:::;!===##@@=@@@@@#,~~...       ~!:   ;~-..*=-=          ;~#*!$#$;~-,:,~. .--~::!*:;;;;;!!!~-:;;;\n");
 
-		game_screen();
+		AddGameScreen();
 
 		move_cursor(5, 3);
-		printf("ÏÑ†ÌÉùÏßÄÎ•º ÏûÖÎ†•ÌïòÏÑ∏Ïöî.");
+		printf("º±≈√¡ˆ∏¶ ¿‘∑¬«œººø‰.");
 
 		move_cursor(151, 6);
-		printf("Í≥µÎûµ ÏÉÅÎåÄ ÏÑ†ÌÉù");
+		printf("∞¯∑´ ªÛ¥Î º±≈√");
 
 
 		move_cursor(139, 13);
-		printf("1. Ïñ¥ÎîòÍ∞Ä ÏúÑÌóòÌï¥ Î≥¥Ïù¥Îäî Í∑∏ÎÖÄ");
+		printf("1. æÓµÚ∞° ¿ß«Ë«ÿ ∫∏¿Ã¥¬ ±◊≥‡");
 
 		move_cursor(139, 18);
-		printf("2. Ïñ¥ÎîòÍ∞Ä ÏùµÏàôÌïú Í∑∏ÎÖÄ"); //Ï†ïÎãµ
+		printf("2. ø∑¡˝ ±◊≥‡"); //¡§¥‰
 
 		move_cursor(139, 23);
-		printf("3. Ï≤≠ÏàúÌïú Í∑∏ÎÖÄ");
+		printf("3. √ªº¯«— ±◊≥‡");
 
 
 		int choice = GetStageChoice_num();
@@ -909,31 +899,31 @@ int gameStage_1() {
 
 
 		if (choice == 2) {
-			ClearStoryArea();
+			RemoveStoryArea();
 			move_cursor(5, 3);
-			printf("Ï†ïÎãµÏûÖÎãàÎã§! ÎãπÏã†Ïùò Ïö¥Î™ÖÏùò ÏÉÅÎåÄÎ•º Ï∞æÏïòÏäµÎãàÎã§.");
+			printf("¡§¥‰¿‘¥œ¥Ÿ! ¥ÁΩ≈¿« øÓ∏Ì¿« ªÛ¥Î∏¶ √£æ“Ω¿¥œ¥Ÿ.");
 			move_cursor(5, 10);
-			printf("Îã§Ïùå Ïä§ÌÖåÏù¥ÏßÄÎ°ú Ïù¥ÎèôÌï©ÎãàÎã§");
+			printf("¥Ÿ¿Ω Ω∫≈◊¿Ã¡ˆ∑Œ ¿Ãµø«’¥œ¥Ÿ");
 			Sleep(2000);
 
-			ClearStoryArea();
-			ClearMenuInside();
+			RemoveStoryArea();
+			RemoveMenuInside();
 
 			gameStage = 2;
 		}
 		else {
-			ClearStoryArea();
+			RemoveStoryArea();
 			move_cursor(5, 3);
-			printf("Í∑∏ ÏÇ¨ÎûåÏùÄ ÎãπÏã†Ïùò Í≥µÎûµÏÉÅÎåÄÍ∞Ä ÏïÑÎãôÎãàÎã§.");
+			printf("±◊ ªÁ∂˜¿∫ ¥ÁΩ≈¿« ∞¯∑´ªÛ¥Î∞° æ∆¥’¥œ¥Ÿ.");
 			Sleep(2000);
-			
-			ClearStoryArea();
-			ClearMenuInside();
-			
+
+			RemoveStoryArea();
+			RemoveMenuInside();
+
 			gameStage = -2;
 		}
 
-		gameStage1_story_index = 0;
+		Stage1_story_index = 0;
 	}
 
 
@@ -944,22 +934,24 @@ int gameStage_1() {
 int gameStage_2() {
 
 	move_cursor(5, 3);
-	printf("Í≤åÏûÑÏä§ÌÖåÏù¥ÏßÄ2");
+	printf("∞‘¿”Ω∫≈◊¿Ã¡ˆ2");
 	move_cursor(5, 5);
-	printf("ÎØ∏ÏôÑÏÑ±");
+	printf("πÃøœº∫");
 
 
 	return 0;
 }
 
-int gameEnding_bad() {
+/*-----------------------------------------------------------------------------------------------------------*/
+
+int Ending_bad() {
 
 	move_cursor(5, 3);
-	printf("Î≤†ÎìúÏóîÎî©");
+	printf("∫£µÂø£µ˘");
 
 	Sleep(2000);
 	move_cursor(5, 5);
-	printf("ÌïòÎ£®Î•º Ïû¨ÏãúÏûë Ìï©ÎãàÎã§.");
+	printf("«œ∑Á∏¶ ¿ÁΩ√¿€ «’¥œ¥Ÿ.");
 
 	Sleep(2000);
 	move_cursor(5, 7);
