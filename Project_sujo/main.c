@@ -605,7 +605,7 @@ void RemoveMenuInside()
 
 }
 
-void Text(int x, int y, const char* text)
+int Text(int x, int y, const char* text)
 {
 	move_cursor(x, y);
 	printf("%s", text);
