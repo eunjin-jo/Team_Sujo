@@ -87,7 +87,7 @@ int Render();
 
 int gameState = 0;
 int TitleMenu = 1;
-int gameStage = 0;
+int gameStage = 5;
 
 /*-----------------------------------------------------------------------------------------------------------*/
 
@@ -289,6 +289,9 @@ int RenderGame() {
 
 
 	switch (gameStage) {
+	case -3:
+		Ending_bad_CheckPoint_1();
+		break;
 	case -2:
 		Ending_bad();
 		break;
@@ -583,7 +586,7 @@ void RemoveStoryArea()
 	}
 }
 
-void RemoveMenuInside()
+int RemoveMenuInside()
 {
 	int menu_left = 135;
 	int menu_right = 180;
@@ -605,7 +608,7 @@ void RemoveMenuInside()
 
 }
 
-int Text(int x, int y, const char* text)
+void Text(int x, int y, const char* text)
 {
 	move_cursor(x, y);
 	printf("%s", text);
@@ -633,6 +636,32 @@ int GetStageChoice_num()
 
 		move_cursor(137, 45);
 		printf("선택지 숫자를 입력하세요");
+	}
+}
+
+void GetStageChoice_str(char top[], size_t topSize,
+	char bottom[], size_t bottomSize)
+{
+	while (1)
+	{
+
+		move_cursor(146, 40);
+		printf("                  ");
+		move_cursor(146, 40);
+
+		int result = scanf_s(
+			"%s %s",
+			top, (unsigned)topSize,
+			bottom, (unsigned)bottomSize
+		);
+
+		if (result == 2)
+		{
+			while (getchar() != '\n');
+			return;
+		}
+
+		while (getchar() != '\n');
 	}
 }
 
@@ -1617,11 +1646,81 @@ int gameStage_4() {
 
 /*-----------------------------------------------------------------------------------------------------------*/
 
+int isValidTop(char* top)
+{
+	return (strcmp(top, "후드티") == 0 ||
+		strcmp(top, "나시") == 0 ||
+		strcmp(top, "셔츠") == 0);
+}
+
+int isValidBottom(char* bottom)
+{
+	return (strcmp(bottom, "정장바지") == 0 ||
+		strcmp(bottom, "반바지") == 0 ||
+		strcmp(bottom, "츄리닝바지") == 0);
+}
+
 int Stage5_story_index = 0;
 
 int gameStage_5() {
+	char top[30];
+	char bottom[30];
 
-	Text(5, 3, "2일차");		
+	if (Stage5_story_index == 0) {
+		Text(5, 3, "2일차");
+		Text(5, 4, "좋은 아침입니다.");
+		Text(5, 5, "오늘은 김민지와의 만남이 약속된 날입니다.");
+
+		Text(5, 7, "당신은 샤워를 마치고 옷장 앞에 섰습니다.");
+
+		Text(5, 9, "옷장을 열면 옷들이 있습니다.");
+
+		Text(5, 11, "상의");
+
+		Text(5, 13, "후드티, 나시, 셔츠");
+
+		Text(5, 15, "하의");
+
+		Text(5, 17, "정장바지, 반바지, 츄리닝바지");
+
+		move_cursor(148, 7);
+		printf("옷을 골라 입으세요.");
+
+		move_cursor(151, 10);
+		printf("선택지 입력은");
+
+		move_cursor(152, 12);
+		printf("> 상의 하의");
+
+		move_cursor(149, 14);
+		printf("순으로 입력하세요.");
+
+		while (1)
+		{
+			GetStageChoice_str(top, sizeof(top), bottom, sizeof(bottom));
+
+
+			if (!isValidTop(top) && !isValidBottom(bottom))
+			{
+				move_cursor(5, 42);
+				printf("존재하지 않는 옷입니다. 다시 선택하세요.");
+				continue;
+			}
+			else if (strcmp(top, "셔츠") == 0 &&
+				strcmp(bottom, "정장바지") == 0)
+			{
+				move_cursor(5, 42);
+				printf("정답입니다!");
+				break;
+			}
+			else {
+				move_cursor(5, 42);
+				printf("옷 선택 실패... 게임 오버");
+				break;
+			}
+
+		}
+	}
 
 	return 0;
 }
