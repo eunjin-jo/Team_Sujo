@@ -439,17 +439,24 @@ int RenderCredits() {
 	printf("\n");
 	printf("\n");
 	printf("\n");
-	printf("                                                                                           ================================\n");
+	printf("================================\n");
 	printf("\n");
-	printf("                                                                                                     T E A M  수조  \n");
+	printf("  T E A M  수조  \n");
 	printf("\n");
-	printf("                                                                                           ================================\n");
+	printf("================================\n");
 	printf("\n");
 	printf("\n");
-	printf("                                                                                           조은진(팀장) : \n");
-	printf("                                                                                           윤수아 : \n");
-	printf("                                                                                           이세빈 : \n");
-	printf("                                                                                           송한이 : \n");
+	printf("저희는 어느 날 갑자기 '루프 마법사'가 되어 무한히 하루를 반복하게 된\n");
+	printf("주인공의 처절한 탈출기를 그린 Team_Sujo(수조팀)입니다.\n");
+	printf("\n");
+	printf("지독한 모솔 저주를 깨뜨리고 내일(Next Day)을 맞이하려는\n");
+	printf("주인공의 여정을 게임으로 구현하기 위해 각자의 자리에서 고민했습니다.\n");
+	printf("\n");
+	printf("\n");
+	printf(" 조은진(팀장) : \n");
+	printf(" 윤수아 : \n");
+	printf(" 이세빈 : \n");
+	printf(" 송한이 : \n");
 	return 0;
 }
 
