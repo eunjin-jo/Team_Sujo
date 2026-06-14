@@ -284,7 +284,7 @@ int RenderGame() {
 
 	AddGameScreen();
 
-	//gameStage -2 : 배드엔딩
+	//gameStage -1 : 배드엔딩
 	//gameStage 0 : 프롤로그
 	//gameStage 1 : 스테이지 1
 	//gameStage 2 : 스테이지 2
@@ -3660,7 +3660,7 @@ int gameStage_18() {
 
 int Ending_bad() {
 
-	Text(5, 3, "베드엔딩");
+	Text(5, 3, "배드엔딩");
 	Text(5, 5, "[루프를 시작합니다.]");
 	Text(5, 7, "3...");
 	Text(5, 8, "2...");
@@ -3675,7 +3675,7 @@ int Ending_bad() {
 
 int Ending_bad_CheckPoint_1() {
 
-	Text(5, 3, "베드엔딩");
+	Text(5, 3, "배드엔딩");
 	Text(5, 5, "[루프를 시작합니다.]");
 	Text(5, 6, "[체크포인트로 이동합니다.]");
 	Text(5, 8, "3...");
@@ -3691,7 +3691,7 @@ int Ending_bad_CheckPoint_1() {
 
 int Ending_bad_CheckPoint_2() {
 
-	Text(5, 3, "베드엔딩");
+	Text(5, 3, "배드엔딩");
 	Text(5, 5, "[루프를 시작합니다.]");
 	Text(5, 6, "[체크포인트로 이동합니다.]");
 	Text(5, 8, "3...");
