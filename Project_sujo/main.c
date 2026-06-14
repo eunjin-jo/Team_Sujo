@@ -116,9 +116,6 @@ int ProcessInput()
 	case GAMESTATE_TITLE:
 		ProcessTitleInput();
 		break;
-	case GAMESTATE_GAME:
-		ProcessGameInput();
-		break;
 	case GAMESTATE_HELP:
 		ProcessMenuInput();
 		break;
@@ -252,22 +249,6 @@ int ProcessTitleInput() {
 
 int ProcessMenuInput() {
 	char input = _getch();
-	switch (input)
-	{
-	case 27:
-		gameState = GAMESTATE_TITLE_ENTER;
-		break;
-	}
-
-	return 0;
-}
-
-int ProcessGameInput() {
-	if (!_kbhit())
-		return 0;
-
-	char input = _getch();
-
 	switch (input)
 	{
 	case 27:
@@ -412,8 +393,9 @@ int RenderHelp(){
 
 	printf("\n");
 	printf("                                                                   게임은 키보드를 통해 간편하게 조작할 수 있습니다.\n");
-	printf("                                                                   - 선택 및 진행 : " GREEN "Enter" RESET "\n");
-	printf("                                                                   - 선택지 이동 : " GREEN "↑ ↓ ← →" RESET " (방향키)\n");
+	printf("                                                                   - 메인 화면에서 선택지 이동 : " GREEN "↑ ↓ " RESET " (방향키)\n");
+	printf("                                                                   - 메인 화면에서 선택지 선택 : " GREEN "Enter" RESET "\n");
+	printf("                                                                   - 게임에서 선택지 선택 : " GREEN " 입력과 Enter " RESET " \n");
 
 	printf("\n");
 	printf("\n");
