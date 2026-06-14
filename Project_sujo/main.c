@@ -2832,11 +2832,13 @@ int gameStage_13() {
 	}
 
 	if (Stage13_story_index == 2) {
+		RemoveStoryArea();
+		RemoveMenuInside();
 
-		Text(5, 22, "민지가 부끄러운 듯 웃으며 말했다.");
+		Text(5, 3, "민지가 부끄러운 듯 웃으며 말했다.");
 
-		Text(5, 24, "\"세상에... 진짜 바로 옆집이었네요.");
-		Text(5, 25, "…이렇게 된 김에... 저녁도 같이 하실래요?\"");
+		Text(5, 5, "\"세상에... 진짜 바로 옆집이었네요.");
+		Text(5, 6, "…이렇게 된 김에... 저녁도 같이 하실래요?\"");
 
 
 		move_cursor(146, 8);
@@ -3127,6 +3129,7 @@ int gameStage_15() {
 
 		if (choice == 1) {
 			RemoveStoryArea();
+			RemoveMenuInside();
 
 			Text(5, 3, "\"아니지, 정신 차려. 확실하게 성공하려면 단 1%의 빈틈도 보이면 안 돼.\"");
 
@@ -3160,6 +3163,7 @@ int gameStage_15() {
 		}
 		if (choice == 2) {
 			RemoveStoryArea();
+			RemoveMenuInside();
 
 			Text(5, 3, "\"어차피 어제 라면 드립에 치맥까지 깠는데 굳이 딱딱하게 카톡을 보낼 필요가 있나?\"");
 
@@ -3238,6 +3242,9 @@ int Stage16_story_index = 0;
 int gameStage_16() {
 
 	if (Stage16_story_index == 0) {
+		RemoveStoryArea();
+		RemoveMenuInside();
+
 		Text(5, 3, "오후 2시 공원 정문 앞.");
 
 		Text(5, 5, "민지는 귀여운 파스텔톤 가디건에 깔끔한 스커트를 입고 서 있었다.");
@@ -3277,6 +3284,7 @@ int gameStage_16() {
 
 		if (choice == 1) {
 			RemoveStoryArea();
+			RemoveMenuInside();
 
 			Text(5, 3, "\"주말엔 북적북적해야 제맛이죠! 저기 핫한 푸드트럭 광장 가서 줄 서서 닭꼬치라도 먹어요!\"");
 
@@ -3303,6 +3311,7 @@ int gameStage_16() {
 		}
 		if (choice == 2) {
 			RemoveStoryArea();
+			RemoveMenuInside();
 
 			Text(5, 3, "\"근처에 되게 조용하고 인테리어 예쁜 카페를 하나 아는데, 거기로 자리를 옮길까요?\"");
 
@@ -3668,6 +3677,9 @@ int Ending_bad() {
 
 	Sleep(1000);
 
+	RemoveStoryArea();
+	RemoveMenuInside();
+
 	gameStage = 1;
 
 	return 0;
@@ -3684,6 +3696,9 @@ int Ending_bad_CheckPoint_1() {
 
 	Sleep(1000);
 
+	RemoveStoryArea();
+	RemoveMenuInside();
+
 	gameStage = 5;
 
 	return 0;
@@ -3699,6 +3714,9 @@ int Ending_bad_CheckPoint_2() {
 	Text(5, 10, "1...");
 
 	Sleep(1000);
+
+	RemoveStoryArea();
+	RemoveMenuInside();
 
 	gameStage = 13;
 
