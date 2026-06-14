@@ -1197,7 +1197,7 @@ int gameStage_1() {
 			RemoveStoryArea();
 			RemoveMenuInside();
 
-			gameStage = 1;
+			gameStage = 2;
 			Stage1_story_index = 0;
 		}
 		if (choice == 1) {
