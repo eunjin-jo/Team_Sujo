@@ -2469,25 +2469,6 @@ int gameStage_10() {
 			RemoveStoryArea();
 			RemoveMenuInside();
 
-			Text(5, 3, "주인공은 민지가 화장실에 간 사이 슬쩍 일어나 카운터에서 계산을 마쳤다.");
-
-			Text(5, 5, "잠시 후 돌아온 민지가 지갑을 꺼내려 하자, 주인공이 미소를 지으며 영수증을 보여주었다.");
-
-			Text(5, 9, "민지의 얼굴이 살짝 붉어지며 감동한 기색이 역력했다.");
-
-			Text(5, 11, "\"아니... 제가 대접하려고 한 건데... 너무 감동이에요.\"");
-
-			Sleep(3000);
-
-			RemoveStoryArea();
-			RemoveMenuInside();
-
-			gameStage = 11;
-		}
-		if (choice == 4) {
-			RemoveStoryArea();
-			RemoveMenuInside();
-
 			Text(5, 3, "잠금을 안해두고 간 그녀.");
 
 			Text(5, 5, "그런데 그녀의 폰에 왠 남자의 이름으로 카톡이 온다.");
@@ -2513,6 +2494,25 @@ int gameStage_10() {
 			RemoveMenuInside();
 
 			gameStage = -2;
+		}
+		if (choice == 4) {
+			RemoveStoryArea();
+			RemoveMenuInside();
+
+			Text(5, 3, "주인공은 민지가 화장실에 간 사이 슬쩍 일어나 카운터에서 계산을 마쳤다.");
+
+			Text(5, 5, "잠시 후 돌아온 민지가 지갑을 꺼내려 하자, 주인공이 미소를 지으며 영수증을 보여주었다.");
+
+			Text(5, 9, "민지의 얼굴이 살짝 붉어지며 감동한 기색이 역력했다.");
+
+			Text(5, 11, "\"아니... 제가 대접하려고 한 건데... 너무 감동이에요.\"");
+
+			Sleep(3000);
+
+			RemoveStoryArea();
+			RemoveMenuInside();
+
+			gameStage = 11;
 		}
 
 		Stage10_story_index = 0;
@@ -2699,6 +2699,21 @@ int gameStage_12() {
 		if (choice == 1) {
 			RemoveStoryArea();
 
+			Text(5, 3, "산책로 왼쪽에서 가끔 자전거나 킥보드가 지나간다.");
+			Text(5, 4, "주인공은 자연스럽게 위협이 오는 쪽을 차단하고, 그녀를 안전한 오른쪽 안쪽에 세워 걸었다.");
+
+			Text(5, 6, "민지는 대화 도중 주인공의 듬직한 매너를 은연중에 느끼며 호감을 키워갔다.");
+
+			Sleep(3000);
+
+			RemoveStoryArea();
+			RemoveMenuInside();
+
+			gameStage = 13;
+		}
+		if (choice == 2) {
+			RemoveStoryArea();
+
 			Text(5, 3, "그녀의 왼쪽에는 차도가 있었고,");
 			Text(5, 4, "그녀는 자신이 안전한 곳으로 걷는 주인공의 이기적인 모습에 실망한다.");
 
@@ -2712,21 +2727,6 @@ int gameStage_12() {
 			RemoveMenuInside();
 
 			gameStage = -2;
-		}
-		if (choice == 2) {
-			RemoveStoryArea();
-
-			Text(5, 3, "산책로 왼쪽에서 가끔 자전거나 킥보드가 지나간다.");
-			Text(5, 4, "주인공은 자연스럽게 위협이 오는 쪽을 차단하고, 그녀를 안전한 오른쪽 안쪽에 세워 걸었다.");
-
-			Text(5, 6, "민지는 대화 도중 주인공의 듬직한 매너를 은연중에 느끼며 호감을 키워갔다.");
-
-			Sleep(3000);
-
-			RemoveStoryArea();
-			RemoveMenuInside();
-
-			gameStage = 13;
 		}
 		if (choice == 3) {
 			RemoveStoryArea();
